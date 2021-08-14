@@ -1,98 +1,109 @@
 // Jason Lazera 7/31/21 jason_lazera@student.uml.edu
+var it = 0;
+var x_start_valid = false;
+var x_end_valid = false;
+var y_start_valid = false;
+var y_end_valid = false;
 
 //makes sure that user input is valid
 function error_check() {
 
-    var x_start = document.getElementById("myForm").elements[0].value;
-    var x_end = document.getElementById("myForm").elements[1].value;
-    var y_start = document.getElementById("myForm").elements[2].value;
-    var y_end = document.getElementById("myForm").elements[3].value;
-    let text;
-    var x_start_valid = false;
-    var y_start_valid = false;
-    var x_end_valid = false;
-    var y_end_valid = false;
+    //get values from form
+    let x_start = Math.floor(document.getElementById("x_start").value);
+    let x_end = Math.floor(document.getElementById("x_end").value);
+    let y_start = Math.floor(document.getElementById("y_start").value);
+    let y_end = Math.floor(document.getElementById("y_end").value);
 
+    x_start_valid = false;
+    x_end_valid = false;
+    y_start_valid = false;
+    y_end_valid = false;
 
-    //make sures x is valid starting value
-    if(x_start >= -50 && x_start <= 50) {
-        if (x_start < 0 && x_start >= -50) {
-            x_start = Number(x_start * -1);
-        }
-        x_start_valid = true;
-    }
-
-    //make sures y is valid starting value
-    if(y_start >= -50 && y_start <= 50) {
-        if (y_start < 0 && y_start >= -50) {
-            y_start = Number(y_start * -1);
-        }
-        y_start_valid = true;
-    }
-
-    //make sures x is valid ending value
-    if(x_end >= -50 && x_end <= 50) {
-        if (x_end < 0 && x_end >= -50) {
-            x_end = Number(x_end * -1);
-        }
-        x_end_valid = true;
-    }
-
-    //makes sure y is valid ending value
-    if(y_end >= -50 && y_end <= 50) {
-        if (y_end < 0 && y_end >= -50) {
-            y_end = Number(y_end * -1);
-        }
-        y_end_valid = true;
-    }
-
-    //rest of conditions are validated
-    if ((x_end < x_start)) {
-        x_end_valid = false;
-        x_start_valid = false;
-    }
-
-    if ((y_end < y_start)) {
-        y_end_valid = false;
-        y_start_valid = false;
-    }
-
-    if (x_start_valid === true && x_end_valid === true &&
-         y_start_valid === true && y_end_valid === true) {
-        text = "Input Valid";
+    //checking x start conditions
+    if (x_start > 50 || x_start < -50 ) {
+        text = "Please make sure the ending x value is larger than the starting x value";
         document.getElementById("demo").innerHTML = text;
-        create_table(x_start, x_end, y_start, y_end);
+    } 
+
+    else {
+        x_start_valid = true;
+        text = "valid";
+        document.getElementById("demo").innerHTML = text;
     }
+    
+    //checking x end conditions
+    console.log(x_start, x_end);
 
-    //if the input is invalid, the user is told why and it is handled
-    //gracefully
-    if (x_start_valid === false || x_end_valid === false ||
-        y_start_valid === false || y_end_valid === false) {
+    if (x_end > 50 || x_end < -50 || (x_end - x_start) < 0 ) {
 
-        if ((x_end < x_start)) {
-            text = "Input Invalid. Make sure the end size is larger than the start size";
-        }
-        
-        else if ((y_end < y_start)) {
-            text = "Input Invalid. Make sure the end size is larger than the start size";
+        if((x_end - x_start) < 0) {
+            text = "Please make sure the ending x value is larger than the starting x value";
+            document.getElementById("demo2").innerHTML = text;
         }
 
         else {
-            text = "Input Invalid. Make sure a number value between -50 and 50 is entered for each option."
+            text = "Please enter an integer value from -50 to 50 (inclusive)";
+            document.getElementById("demo2").innerHTML = text;
         }
-        document.getElementById("demo").innerHTML = text;
     }
+
+    else {
+        x_end_valid = true;
+        text = "valid";
+        document.getElementById("demo2").innerHTML = text;
+    }
+
+    //checking y start conditions
+    if (y_start > 50 || y_start < -50) {
+        text = "Please make sure the ending x value is larger than the starting x value";
+        document.getElementById("demo3").innerHTML = text;
+    }
+
+    else {
+        y_start_valid = true;
+        text = "valid";
+        document.getElementById("demo3").innerHTML = text;
+    }
+
+    //checking y end conditions
+    if (y_end > 50 || y_end < -50 || (y_end - y_start) < 0) {
+        
+        console.log((y_end - y_start));
+        if((y_end - y_start) < 0) {
+            text = "Please make sure the ending y value is larger than the starting y value";
+            document.getElementById("demo4").innerHTML = text;
+        }
+
+        else {
+            text = "Please enter an integer value from -50 to 50 (inclusive)";
+            document.getElementById("demo4").innerHTML = text;
+        }
+    }
+
+    else {
+        y_end_valid = true;
+        text = "valid";
+        document.getElementById("demo4").innerHTML = text;
+    }
+
+    if (x_start_valid == true && x_end_valid == true && 
+        y_start_valid == true && y_end_valid == true) {
+        create_table();
+    }
+
 }
 
 //some code from this function was taken from https://stackoverflow.com/questions/14643617/create-table-using-javascript
 //function generates the table
-function create_table(x_start, x_end, y_start, y_end) {
+function create_table() {
+
+    var x_start = Math.floor(document.getElementById("myForm").elements[0].value);
+    var x_end = Math.floor(document.getElementById("myForm").elements[1].value);
+    var y_start = Math.floor(document.getElementById("myForm").elements[2].value);
+    var y_end = Math.floor(document.getElementById("myForm").elements[3].value);
 
     var num = Number(x_start);
     var num2 = Number(y_start);
-
-    console.log(num);
-    console.log(num2);
 
     //html elements are imported
     var tablearea = document.getElementById('tablearea');
@@ -100,6 +111,7 @@ function create_table(x_start, x_end, y_start, y_end) {
     tbl.style.width  = '100px';
     tbl.style.border = '2px solid black';
 
+    //table is made based on template from stackoverflow
     for(var i = y_start-1; i <= y_end; i++){
         var tr = tbl.insertRow();
 
@@ -131,5 +143,14 @@ function create_table(x_start, x_end, y_start, y_end) {
         }
     }
 
+    if (it > 0) {
+        var table1 = document.getElementById('table1');
+        tablearea.removeChild(table1);
+        console.log(1);
+    }
+
+    tbl.setAttribute('id', 'table1');
     tablearea.appendChild(tbl);
+    
+    it++;
 }

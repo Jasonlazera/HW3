@@ -5,7 +5,14 @@ jason_lazera@student.uml.edu */
 /* Some of this formatting code for the table was taken from W3Schools CSS form formatting */
 input[type="text"] {
     width: 20%;
-    
+}
+
+p {
+    margin-top: 5px;
+    color: rgb(0, 0, 0);
+    background-color: none;
+    text-align: left;
+    border-radius: 5px;
 }
   
 /* formatting for div */
